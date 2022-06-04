@@ -1,0 +1,3 @@
+2022-06-04 16:30:59.825210 Deposit: Balance before: Rs.0
+									Amount deposited: Rs.3000.0
+									Present balance: Rs.3000.0

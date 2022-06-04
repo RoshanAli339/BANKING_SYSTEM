@@ -63,13 +63,13 @@ def withdraw(bal, ac):
     return bal-amount
     
 def user():
-    os.system('clear')
+    os.system('cls')
     ac = input('Enter account number: ')
     pin = input('Enter security pin: ')
 
     row = check_acc(ac, pin)
     while row == 0:
-        os.system('clear')
+        os.system('cls')
         print('Invalid account number or security pin!Enter \'e\' to exit or try again')
         ac = input('Enter account number: ')
         if ac == 'e':
@@ -77,7 +77,7 @@ def user():
         pin = input('Enter security pin: ')
         row = check_acc(ac, pin)
     
-    os.system('clear')
+    os.system('cls')
     print('LOGIN SUCCESSFUL!\n\n')
 
     wb = openpyxl.load_workbook(filename = 'accounts.xlsx')

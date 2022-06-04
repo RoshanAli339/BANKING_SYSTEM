@@ -4,7 +4,7 @@ import random as r
 import openpyxl
 
 def creating():
-    os.system('clear')
+    os.system('cls')
     print('Please enter the following details correctly for avoiding re-corrections!')
     name = input('Name: ')
     fname = input('Father name: ')
