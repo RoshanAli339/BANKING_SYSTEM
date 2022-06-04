@@ -1,0 +1,2 @@
+All transactions will be saved in separate files with account numbers of users as names of the files.
+Each transaction will be dated along with a time stamp.
