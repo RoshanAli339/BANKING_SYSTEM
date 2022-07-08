@@ -1,10 +1,15 @@
 #Author: Shaik Roshan Ali
 
 
-import os
-import random as r
-import datetime
-import openpyxl
+''' 
+    A main file which executes the main part of the program.
+    This file does not have any special importance as I wished to keep it separated for different operations
+    This file imports the other two main files :
+                                                    new_user.py which creates and updates the information of new users.
+                                                    existing.py which deals with all the functions that are related to an existing user.
+'''
+
+
 import new_user
 import existing
 
