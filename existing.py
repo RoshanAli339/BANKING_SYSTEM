@@ -173,7 +173,8 @@ def user():
             show_transactions(ac)
 
         elif choice == 6:
-            #the excel file is being saved the programming is being exited
+            #the excel file is being saved 
+            #the program is being exited
             wb.save('accounts.xlsx')
             exit(0)
         os.system('cls')
