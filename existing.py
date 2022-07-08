@@ -1,17 +1,36 @@
 import os
 from datetime import datetime
 import openpyxl
+from openpyxl.utils import get_column_letter 
+
+
+def get_acc_list():
+    wb = openpyxl.load_workbook('accounts.xlsx')
+    sh = wb.active
+    l = []
+    for i in range(2, sh.max_row+1):
+        l.append(sh[get_column_letter(2)+str(i)].value)
+    wb.save('accounts.xlsx')
+    return l
+
+def get_key_list():
+    wb = openpyxl.load_workbook('accounts.xlsx')
+    sh = wb.active
+    l = []
+    for i in range(2, sh.max_row+1):
+        l.append(sh[get_column_letter(6)+str(i)].value)
+    wb.save('accounts.xlsx')
+    return l
 
 def check_acc(ac, pin):
-    wb = openpyxl.load_workbook(filename = 'accounts.xlsx')
-    sh = wb['Sheet1']
-
-    for i in range(2, sh.max_row+1):
-        if sh.cell(i,2).value == ac:
-            if sh.cell(i,6).value == pin:
-                return i
-            else: return 0
-        else: return 0
+    accs = get_acc_list()
+    keys = get_key_list()
+    if ac in accs:
+        i = accs.index(ac)
+        if keys[i] == pin:
+            return i + 2
+        else:
+            return 0
 
 def transfer(bal, ac):
     name = input("Enter name of recipient: ")
@@ -25,6 +44,7 @@ def transfer(bal, ac):
     
     file = 'transacs//' + ac+ '.txt'
     f = open(file, 'a+')
+    f.seek(0,0)
     line = str(date) + ' Transfer: ' + 'Sent to: '+name+'\n'+('\t'*9)+' Bank: '+bank +'\n'+('\t'*9)+\
         ' Recipient account number: '+acc+'\n'+('\t'*9)+\
         ' Amount transferred: Rs.'+str(amount) + '\n'+('\t'*9)+' Available Balance: Rs.'+str(bal-amount)+'\n'
@@ -38,7 +58,7 @@ def deposit(bal, ac):
     file = 'transacs//' + ac + '.txt'
     date = datetime.today()
     f = open(file, 'a+')
-    f.seek(0)
+    f.seek(0,0)
     line = str(date)+' Deposit: Balance before: Rs.'+str(bal)+'\n'+('\t'*9)+'Amount deposited: Rs.'+\
             str(amount)+'\n'+('\t'*9)+'Present balance: Rs.' + str(bal+amount) + '\n'
     f.write(line)
@@ -54,7 +74,7 @@ def withdraw(bal, ac):
     file = 'transacs//' + ac + '.txt'
     date = datetime.today()
     f = open(file, 'a+')
-    f.seek(0)
+    f.seek(0,0)
     line = str(date)+' Withdrawl: Balance before: Rs.'+str(bal)+str(bal)+'\n'+('\t'*9)+'    Amount withdrawn: Rs.'+\
         str(amount) + '\n'+('\t'*9)+'    Present balance: Rs.' + str(bal-amount) + '\n'
     f.write(line)
@@ -79,7 +99,6 @@ def user():
     
     os.system('cls')
     print('LOGIN SUCCESSFUL!\n\n')
-
     wb = openpyxl.load_workbook(filename = 'accounts.xlsx')
     sh = wb['Sheet1']
 
