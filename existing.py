@@ -32,6 +32,17 @@ def check_acc(ac, pin):
         else:
             return 0
 
+
+def show_transactions(ac):
+    file = 'transacs//' + ac + '.txt'
+    f = open(file=file)
+    f.seek(0,0)
+    os.system('cls')
+    print("Transaction History: ")
+    print(f.read())
+    a = input("Press Enter to continue")
+    return
+
 def transfer(bal, ac):
     name = input("Enter name of recipient: ")
     bank = input("Enter recipient bank name and branch: ")
@@ -45,7 +56,7 @@ def transfer(bal, ac):
     file = 'transacs//' + ac+ '.txt'
     f = open(file, 'a+')
     f.seek(0,0)
-    line = str(date) + ' Transfer: ' + 'Sent to: '+name+'\n'+('\t'*9)+' Bank: '+bank +'\n'+('\t'*9)+\
+    line = str(date) + ' Transfer:\n' + ('\t'*9) +'Sent to: '+name+'\n'+('\t'*9)+' Bank: '+bank +'\n'+('\t'*9)+\
         ' Recipient account number: '+acc+'\n'+('\t'*9)+\
         ' Amount transferred: Rs.'+str(amount) + '\n'+('\t'*9)+' Available Balance: Rs.'+str(bal-amount)+'\n'
     f.write(line)
@@ -103,7 +114,7 @@ def user():
     sh = wb['Sheet1']
 
     while True:
-        print('1.Check balance\n2.Deposit money\n3.Withdraw money\n4.Transfer money\n5.Quit')
+        print('1.Check balance\n2.Deposit money\n3.Withdraw money\n4.Transfer money\n5.Show Transaction History\n6.Quit')
         choice = int(input('Enter your choice: '))
 
         if  choice == 1:
@@ -118,5 +129,8 @@ def user():
             result = transfer(sh.cell(row, 7).value, ac)
             sh.cell(row, 7, value=result)
         elif choice == 5:
+            show_transactions(ac)
+        elif choice == 6:
             wb.save('accounts.xlsx')
             exit(0)
+        os.system('cls')
